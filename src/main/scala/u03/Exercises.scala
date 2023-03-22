@@ -57,3 +57,8 @@ object Exercises :
 
     def getCoursesOfTeachers(l: List[Person]): List[String]=
       flatMap(newFilter(l)(v => !isStudent(v)))(t => Cons(Person.course(t), Nil()))
+
+
+    def foldLeft[A, B](l: List[A])(acc :B)(f: (B,A)=>B) : B = l match
+      case Cons(h,Nil()) => f(acc,h)
+      case Cons(h,t) => foldLeft(t)(f(acc, h))(f)

@@ -63,3 +63,12 @@ class ExercisesTest:
     assertEquals(Nil(), getCoursesOfTeachers(students))
     assertEquals(Nil(), getCoursesOfTeachers(Nil()))
 
+
+  @Test def testFoldLeft() =
+    assertEquals(60, foldLeft(l)(0)(_ + _))
+    assertEquals(64, foldLeft(l)(4)(_ + _ ))
+    assertEquals(-60, foldLeft(l)(0)(_ - _ ))
+    assertEquals(-55, foldLeft(l)(5)(_ - _ ))
+    assertEquals(0.0016, foldLeft(l)(10.0)(_ /_ ), 0.0001)
+
+//assertEquals(1, foldLeft(Nil())(1)(_ + _))
