@@ -11,6 +11,8 @@ object Modules extends App :
     def name(p: Person): String = p match
       case Student(n, _) => n
       case Teacher(n, _) => n
+    def course(t: Person): String = t match
+      case Teacher(_, c) => c
 
   println(Person.name(Person.Student("mario", 2015)))
 
