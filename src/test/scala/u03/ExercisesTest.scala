@@ -72,3 +72,10 @@ class ExercisesTest:
     assertEquals(0.0016, foldLeft(l)(10.0)(_ /_ ), 0.0001)
 
 //assertEquals(1, foldLeft(Nil())(1)(_ + _))
+
+  @Test def testFoldRight()=
+    assertEquals(60, foldRight(l)(0)(_ + _))
+    assertEquals(64, foldRight(l)(4)(_ + _))
+    assertEquals(20, foldRight(l)(0)(_ - _))
+    assertEquals(15, foldRight(l)(5)(_ - _))
+    assertEquals(1.5, foldRight(l)(10.0)(_ / _), 0.1)
