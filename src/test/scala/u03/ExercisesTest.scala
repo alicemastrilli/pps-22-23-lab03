@@ -4,10 +4,9 @@ import org.junit.*
 import org.junit.Assert.*
 import Exercises.*
 import u02.Modules.Person
-
+import List.*
 
 class ExercisesTest:
-  import List.*
   import Option.*
   import Person.*
   val l: List[Int] = Cons(10, Cons(20, Cons(30, Nil())))
@@ -77,4 +76,14 @@ class ExercisesTest:
     assertEquals(20, foldRight(l)(0)(_ - _))
     assertEquals(15, foldRight(l)(5)(_ - _))
     assertEquals(1.5, foldRight(l)(10.0)(_ / _), 0.1)
+
+  import Stream.*
+  val s = Stream.take(Stream.iterate(0)(_ + 1))(10)
+  val l3:List[Int] = Cons (6 , Cons (7 , Cons (8 , Cons (9 , Nil ()))))
+  @Test def testStreamDrop() =
+    assertEquals(l3, Stream.toList(Stream.drop(s)(6)))
+    assertEquals(Nil(), Stream.toList(Stream.drop(empty())(2)))
+    assertEquals(Stream.toList(s), Stream.toList(Stream.drop(s)(0)))
+    assertEquals(Nil(), Stream.toList(Stream.drop(s)(11)))
+    
 

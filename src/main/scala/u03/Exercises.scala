@@ -65,3 +65,31 @@ object Exercises :
     def foldRight[A, B](l: List[A])(acc :B)(f: (A,B)=>B) : B = l match
       case Cons(h,t) => f(h, foldRight(t)(acc)(f))
       case Nil() => acc
+
+
+
+  enum Stream[A]:
+    private case Empty()
+    private case Cons(head: () => A, tail: () => Stream[A])
+  object Stream:
+    def cons[A](hd: => A, tl: => Stream[A]): Stream[A] =
+      lazy val head = hd
+      lazy val tail = tl
+      Cons(() => head, () => tail)
+    def empty[A](): Stream[A] = Empty()
+
+
+    def toList[A](stream: Stream[A]): List[A] = stream match
+      case Cons(h, t) => List.Cons(h(), toList(t()))
+      case _ => List.Nil()
+    def take[A](stream: Stream[A])(n: Int): Stream[A] = (stream, n) match
+      case (Cons(head, tail), n) if n > 0 => cons(head(), take(tail())(n - 1))
+      case _ => Empty()
+
+    def iterate[A](init: => A)(next: A => A): Stream[A] =
+      cons(init, iterate(next(init))(next))
+    def drop[A](stream: Stream[A])(n: Int): Stream[A] = (stream, n) match
+      case (s, 0) => s
+      case (Cons(_, tail), n) => drop(tail())(n-1)
+      case _ => Empty()
+
