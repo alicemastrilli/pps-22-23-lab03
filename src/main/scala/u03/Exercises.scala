@@ -26,8 +26,8 @@ object Exercises :
 
     def drop[A](l: List[A], n: Int): List[A] = (l, n) match
       case (Nil(), _) => Nil()
-      case (Cons(_, t), 0) => t
-      case (Cons(h, t), n) => Cons(h, drop(t, n - 1))
+      case (Cons(h, t), 0) => Cons(h, t)
+      case (Cons(_, t), n) => drop(t, n - 1)
 
     def append[A](left: List[A], right: List[A]): List[A] = (left, right) match
       case (Nil(), l2) => l2
@@ -59,11 +59,9 @@ object Exercises :
       flatMap(newFilter(l)(v => !isStudent(v)))(t => Cons(Person.course(t), Nil()))
 
     def foldLeft[A, B](l: List[A])(acc :B)(f: (B,A)=>B) : B = l match
-      case Cons(h,Nil()) => f(acc,h)
+      case Nil() => acc
       case Cons(h,t) => foldLeft(t)(f(acc, h))(f)
-      case Nil() => ???
 
     def foldRight[A, B](l: List[A])(acc :B)(f: (A,B)=>B) : B = l match
-      case Cons(h,Nil()) => f(h, acc)
       case Cons(h,t) => f(h, foldRight(t)(acc)(f))
-      case Nil() => ???
+      case Nil() => acc

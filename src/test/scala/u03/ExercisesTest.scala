@@ -22,11 +22,11 @@ class ExercisesTest:
   val persons: List[Person] = Cons(p1, Cons(p2, Cons(p3, Cons(p4, Cons(p5, Nil())))))
   val students: List[Person] = Cons(p1, Cons(p4, Nil()))
   @Test def testDrop() =
-    assertEquals(Cons(20, Cons(30, Nil())), drop(l, 0))
-    assertEquals(Cons(10, Cons(30, Nil())), drop(l, 1))
-    assertEquals(Cons(10, Cons(20, Nil())), drop(l, 2))
-    assertEquals(l, drop(l, 3))
-    assertEquals(l, drop(l, -2))
+    assertEquals(l, drop(l, 0))
+    assertEquals(Cons(20, Cons(30, Nil())), drop(l, 1))
+    assertEquals(Cons(30, Nil()), drop(l, 2))
+    assertEquals(Nil(), drop(l, 3))
+    assertEquals(Nil(), drop(l, -2))
     assertEquals(Nil(), drop(Nil(), 2))
 
   @Test def testAppend() =
@@ -71,11 +71,10 @@ class ExercisesTest:
     assertEquals(-55, foldLeft(l)(5)(_ - _ ))
     assertEquals(0.0016, foldLeft(l)(10.0)(_ /_ ), 0.0001)
 
-//assertEquals(1, foldLeft(Nil())(1)(_ + _))
-
   @Test def testFoldRight()=
     assertEquals(60, foldRight(l)(0)(_ + _))
     assertEquals(64, foldRight(l)(4)(_ + _))
     assertEquals(20, foldRight(l)(0)(_ - _))
     assertEquals(15, foldRight(l)(5)(_ - _))
     assertEquals(1.5, foldRight(l)(10.0)(_ / _), 0.1)
+
