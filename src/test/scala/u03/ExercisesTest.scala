@@ -4,11 +4,12 @@ import org.junit.*
 import org.junit.Assert.*
 import Exercises.*
 import u02.Modules.Person
-import List.*
+import Lists.*
+import u02.Optionals.*
 
 class ExercisesTest:
-  import Option.*
   import Person.*
+  import List.*
   val l: List[Int] = Cons(10, Cons(20, Cons(30, Nil())))
   val l2: List[Int] = Cons(40, Cons(50, Nil()))
 
@@ -50,6 +51,7 @@ class ExercisesTest:
     assertEquals(Cons(10, Cons(30, Nil())), newFilter(l)(_ != 20))
     assertEquals(Nil(), newFilter(Nil())(_ != 20))
 
+  import Option.*
 
   @Test def testMax() =
     assertEquals(Some(30), max(l))
@@ -76,14 +78,25 @@ class ExercisesTest:
     assertEquals(20, foldRight(l)(0)(_ - _))
     assertEquals(15, foldRight(l)(5)(_ - _))
     assertEquals(1.5, foldRight(l)(10.0)(_ / _), 0.1)
-
+    
   import Stream.*
-  val s = Stream.take(Stream.iterate(0)(_ + 1))(10)
+  val s = take(iterate(0)(_ + 1))(10)
+  val t = take(constant("x"))(5)
   val l3:List[Int] = Cons (6 , Cons (7 , Cons (8 , Cons (9 , Nil ()))))
+  val fib: List[Int] = Cons(0, Cons(1, Cons(1, Cons(2, Cons(3, Cons(5,
+    Cons(8, Cons(13, Nil()))))))))
+
   @Test def testStreamDrop() =
     assertEquals(l3, Stream.toList(Stream.drop(s)(6)))
     assertEquals(Nil(), Stream.toList(Stream.drop(empty())(2)))
     assertEquals(Stream.toList(s), Stream.toList(Stream.drop(s)(0)))
     assertEquals(Nil(), Stream.toList(Stream.drop(s)(11)))
-    
 
+  @Test def testConstant() =
+    assertEquals(Cons ("x", Cons ("x", Cons ("x", Cons ("x", Cons ("x", Nil ()))))),
+      Stream . toList ( t))
+    assertEquals(Cons(true, Cons(true, Nil())),
+      Stream.toList(take(constant(true))(2)))
+
+  @Test def testFibs() =
+    assertEquals(fib, Stream . toList ( Stream . take ( fibs() ) (8) ))
