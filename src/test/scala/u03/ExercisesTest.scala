@@ -64,8 +64,11 @@ class ExercisesTest:
     assertEquals(Nil(), getCoursesOfTeachers(students))
     assertEquals(Nil(), getCoursesOfTeachers(Nil()))
 
+  val lst = Cons (3 , Cons (7 , Cons (1 , Cons (5 , Nil () ) ) ) )
 
   @Test def testFoldLeft() =
+    assertEquals(-16, foldLeft(lst)(0)(_ - _))
+
     assertEquals(60, foldLeft(l)(0)(_ + _))
     assertEquals(64, foldLeft(l)(4)(_ + _ ))
     assertEquals(-60, foldLeft(l)(0)(_ - _ ))
@@ -73,6 +76,7 @@ class ExercisesTest:
     assertEquals(0.0016, foldLeft(l)(10.0)(_ /_ ), 0.0001)
 
   @Test def testFoldRight()=
+    assertEquals(-8, foldRight ( lst ) (0) ( _ - _ ))
     assertEquals(60, foldRight(l)(0)(_ + _))
     assertEquals(64, foldRight(l)(4)(_ + _))
     assertEquals(20, foldRight(l)(0)(_ - _))
