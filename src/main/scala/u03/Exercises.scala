@@ -7,6 +7,7 @@ object Exercises :
   import List.*
   import Option.*
 
+  // Task 1 - svolto da solo
     def drop[A](l: List[A], n: Int): List[A] = (l, n) match
       case (Nil(), _) => Nil()
       case (Cons(h, t), 0) => Cons(h, t)
@@ -27,7 +28,8 @@ object Exercises :
       flatMap(l1)(v => l1 match
         case Cons(_, _) if pred(v) => Cons(v, Nil())
         case _ => Nil())
-
+  
+  // Task 2 - svolto da solo
     def max(l: List[Int]): Option[Int] = l match
       case Nil() => None()
       case Cons(h,t) => _max(t, h)
@@ -35,10 +37,11 @@ object Exercises :
       private def _max(l: List[Int], m: Int): Option[Int] = l match
         case Nil() => Some(m)
         case Cons(h,t) => _max(t, math.max(m,h))
-
+  // Task 3 - svolto da solo
     def getCoursesOfTeachers(l: List[Person]): List[String]=
       flatMap(newFilter(l)(v => !isStudent(v)))(t => Cons(Person.course(t), Nil()))
-
+  
+  // Task 4 - svolto da solo
     def foldLeft[A, B](l: List[A])(acc :B)(f: (B,A)=>B) : B = l match
       case Nil() => acc
       case Cons(h,t) => foldLeft(t)(f(acc, h))(f)
@@ -67,14 +70,18 @@ object Exercises :
 
     def iterate[A](init: => A)(next: A => A): Stream[A] =
       cons(init, iterate(next(init))(next))
+
+    // Task 5 - svolto da solo   
     def drop[A](stream: Stream[A])(n: Int): Stream[A] = (stream, n) match
       case (s, 0) => s
       case (Cons(_, tail), n) => drop(tail())(n-1)
       case _ => empty()
-    
+
+    // Task 6 - svolto da solo
     def constant[A](value: A): Stream[A] =
       cons(value, constant(value))
 
+    // Task 7 - svolto da solo
     def fibs(): Stream[Int] =
       def _fibs(val1: Int, val2: Int): Stream[Int] =
         cons(val2, _fibs(val2, val1 + val2))
